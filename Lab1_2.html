@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Місцевий Книжковий Магазин</title>
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BookStore",
+      "name": "Літературна Гавань",
+      "description": "Чарівний книжковий магазин з широким вибором книг та затишними місцями для читання.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "456 Вулиця Дубів",
+        "addressLocality": "Книжкове Місто",
+        "addressRegion": "UA"
+      },
+      "telephone": "(123) 456-7890"
+    }
+    </script>
+</head>
+<body itemscope itemtype="http://schema.org/BookStore" vocab="http://schema.org/" typeof="BookStore">
+    <h1 itemprop="name" property="name">Літературна Гавань</h1>
+    <p itemprop="description" property="description">Чарівний книжковий магазин з широким вибором книг та затишними місцями для читання.</p>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" property="address" typeof="PostalAddress">
+        <span itemprop="streetAddress" property="streetAddress">456 Вулиця Дубів</span><br>
+        <span itemprop="addressLocality" property="addressLocality">Книжкове Місто</span>, 
+        <span itemprop="addressRegion" property="addressRegion">КА</span>
+    </div>
+    <p itemprop="telephone" property="telephone">(123) 456-7890</p>
+</body>
+</html>

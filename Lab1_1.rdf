@@ -1,0 +1,48 @@
+@prefix ex: <http://example.org/> .
+@prefix metal: <http://example.org/metal#> .
+@prefix media: <http://example.org/media#> .
+@prefix text: <http://example.org/text#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix dbpedia: <http://dbpedia.org/ontology/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# 1. Латунь – це сплав міді та цинку.
+ex:Brass a metal:Alloy ;
+    metal:composedOf metal:Copper, metal:Zinc .
+
+# 2. SPIEGEL — німецький інформаційний журнал зі штаб-квартирою в Гамбурзі.
+ex:Spiegel a dbpedia:Journal ;
+    rdfs:label "Spiegel" ;
+    dbpedia:language "німецька" ;
+    dbpedia:headquarters ex:Hamburg .
+
+# 3. Есе складається зі вступу, основної частини та висновку.
+ex:Essay a text:StructuredText ;
+    text:hasPart ex:Introduction, ex:MainBody, ex:Conclusion .
+
+# 4. Павло знає, що Олена живе в Полтаві.
+ex:Pavlo foaf:knows ex:OlenaLivesInPoltava .
+ex:OlenaLivesInPoltava a ex:Statement ;
+    ex:about ex:Olena ;
+    ex:location geo:Poltava .
+
+# 5. Олена каже, що її друг живе в Києві.
+ex:Olena foaf:knows ex:FriendLivesInKyiv .
+ex:FriendLivesInKyiv a ex:Statement ;
+    ex:about ex:Friend ;
+    ex:location geo:Kyiv .
+
+# 6. Стефан думає, що Анна знає, що він знає її батька.
+ex:Stefan foaf:thinks ex:AnnaKnowsStefanKnowsHerFather .
+ex:AnnaKnowsStefanKnowsHerFather a ex:Statement ;
+    ex:knows ex:StefanKnowsHerFather .
+ex:StefanKnowsHerFather a ex:Statement ;
+    ex:knows ex:Father .
+
+# 7. Іван знає, що Рим є столицею Італії.
+ex:Ivan foaf:knows ex:RomeIsCapitalOfItaly .
+ex:RomeIsCapitalOfItaly a ex:Statement ;
+    ex:capitalOf dbpedia:Italy ;
+    ex:isCapital dbpedia:Rome .
