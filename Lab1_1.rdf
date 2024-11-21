@@ -1,48 +1,71 @@
-@prefix ex: <http://example.org/> .
-@prefix metal: <http://example.org/metal#> .
-@prefix media: <http://example.org/media#> .
-@prefix text: <http://example.org/text#> .
-@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@prefix dbpedia: <http://dbpedia.org/ontology/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:ex="http://example.org/"
+         xmlns:metal="http://example.org/metal#"
+         xmlns:media="http://example.org/media#"
+         xmlns:text="http://example.org/text#"
+         xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+         xmlns:dbpedia="http://dbpedia.org/ontology/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
 
-# 1. Латунь – це сплав міді та цинку.
-ex:Brass a metal:Alloy ;
-    metal:composedOf metal:Copper, metal:Zinc .
+  <rdf:Description rdf:about="http://example.org/Brass">
+    <rdf:type rdf:resource="http://example.org/metal#Alloy"/>
+    <metal:composedOf rdf:resource="http://example.org/metal#Copper"/>
+    <metal:composedOf rdf:resource="http://example.org/metal#Zinc"/>
+  </rdf:Description>
 
-# 2. SPIEGEL — німецький інформаційний журнал зі штаб-квартирою в Гамбурзі.
-ex:Spiegel a dbpedia:Journal ;
-    rdfs:label "Spiegel" ;
-    dbpedia:language "німецька" ;
-    dbpedia:headquarters ex:Hamburg .
+  <rdf:Description rdf:about="http://example.org/Spiegel">
+    <rdf:type rdf:resource="http://dbpedia.org/ontology/Journal"/>
+    <rdfs:label>Spiegel</rdfs:label>
+    <dbpedia:language>німецька</dbpedia:language>
+    <dbpedia:headquarters rdf:resource="http://example.org/Hamburg"/>
+  </rdf:Description>
 
-# 3. Есе складається зі вступу, основної частини та висновку.
-ex:Essay a text:StructuredText ;
-    text:hasPart ex:Introduction, ex:MainBody, ex:Conclusion .
+  <rdf:Description rdf:about="http://example.org/Essay">
+    <rdf:type rdf:resource="http://example.org/text#StructuredText"/>
+    <text:hasPart rdf:resource="http://example.org/Introduction"/>
+    <text:hasPart rdf:resource="http://example.org/MainBody"/>
+    <text:hasPart rdf:resource="http://example.org/Conclusion"/>
+  </rdf:Description>
 
-# 4. Павло знає, що Олена живе в Полтаві.
-ex:Pavlo foaf:knows ex:OlenaLivesInPoltava .
-ex:OlenaLivesInPoltava a ex:Statement ;
-    ex:about ex:Olena ;
-    ex:location geo:Poltava .
+  <rdf:Description rdf:about="http://example.org/Pavlo">
+    <foaf:knows rdf:resource="http://example.org/OlenaLivesInPoltava"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/OlenaLivesInPoltava">
+    <rdf:type rdf:resource="http://example.org/Statement"/>
+    <ex:about rdf:resource="http://example.org/Olena"/>
+    <ex:location rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#Poltava"/>
+  </rdf:Description>
 
-# 5. Олена каже, що її друг живе в Києві.
-ex:Olena foaf:knows ex:FriendLivesInKyiv .
-ex:FriendLivesInKyiv a ex:Statement ;
-    ex:about ex:Friend ;
-    ex:location geo:Kyiv .
+  <rdf:Description rdf:about="http://example.org/Olena">
+    <foaf:knows rdf:resource="http://example.org/FriendLivesInKyiv"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/FriendLivesInKyiv">
+    <rdf:type rdf:resource="http://example.org/Statement"/>
+    <ex:about rdf:resource="http://example.org/Friend"/>
+    <ex:location rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#Kyiv"/>
+  </rdf:Description>
 
-# 6. Стефан думає, що Анна знає, що він знає її батька.
-ex:Stefan foaf:thinks ex:AnnaKnowsStefanKnowsHerFather .
-ex:AnnaKnowsStefanKnowsHerFather a ex:Statement ;
-    ex:knows ex:StefanKnowsHerFather .
-ex:StefanKnowsHerFather a ex:Statement ;
-    ex:knows ex:Father .
+  <rdf:Description rdf:about="http://example.org/Stefan">
+    <foaf:thinks rdf:resource="http://example.org/AnnaKnowsStefanKnowsHerFather"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/AnnaKnowsStefanKnowsHerFather">
+    <rdf:type rdf:resource="http://example.org/Statement"/>
+    <ex:knows rdf:resource="http://example.org/StefanKnowsHerFather"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/StefanKnowsHerFather">
+    <rdf:type rdf:resource="http://example.org/Statement"/>
+    <ex:knows rdf:resource="http://example.org/Father"/>
+  </rdf:Description>
 
-# 7. Іван знає, що Рим є столицею Італії.
-ex:Ivan foaf:knows ex:RomeIsCapitalOfItaly .
-ex:RomeIsCapitalOfItaly a ex:Statement ;
-    ex:capitalOf dbpedia:Italy ;
-    ex:isCapital dbpedia:Rome .
+  <rdf:Description rdf:about="http://example.org/Ivan">
+    <foaf:knows rdf:resource="http://example.org/RomeIsCapitalOfItaly"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/RomeIsCapitalOfItaly">
+    <rdf:type rdf:resource="http://example.org/Statement"/>
+    <ex:capitalOf rdf:resource="http://dbpedia.org/ontology/Italy"/>
+    <ex:isCapital rdf:resource="http://dbpedia.org/ontology/Rome"/>
+  </rdf:Description>
+
+</rdf:RDF>
