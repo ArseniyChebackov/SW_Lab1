@@ -1,31 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <head>
-    <title>Місцевий Книжковий Магазин</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Книга: "Великий роман"</title>
+</head>
+<body>
+    <header>
+        <h1>Книга: "Великий роман"</h1>
+    </header>
+
+    <!-- Microdata -->
+    <section itemscope itemtype="https://schema.org/Book">
+        <h2>Опис книги</h2>
+        <p><strong>Назва:</strong> <span itemprop="name">Великий роман</span></p>
+        <p><strong>Автор:</strong> <span itemprop="author">Іван Іванов</span></p>
+        <p><strong>Дата публікації:</strong> <span itemprop="datePublished">2024-01-01</span></p>
+        <p><strong>Видавництво:</strong> <span itemprop="publisher">Видавництво "Книга"</span></p>
+        <p><strong>Опис:</strong> <span itemprop="description">Це захоплюючий роман, який розповідає історію про великі пригоди героя у далекому майбутньому.</span></p>
+        <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <p><strong>Ціна:</strong> <span itemprop="price" content="500">500 грн</span></p>
+            <p><strong>Валюта:</strong> <span itemprop="priceCurrency" content="UAH">UAH</span></p>
+        </div>
+    </section>
+
+    <!-- JSON-LD -->
     <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
-      "@type": "BookStore",
-      "name": "Літературна Гавань",
-      "description": "Чарівний книжковий магазин з широким вибором книг та затишними місцями для читання.",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "456 Вулиця Дубів",
-        "addressLocality": "Книжкове Місто",
-        "addressRegion": "UA"
-      },
-      "telephone": "(123) 456-7890"
+        "@context": "https://schema.org",
+        "@type": "Book",
+        "name": "Великий роман",
+        "author": "Іван Іванов",
+        "datePublished": "2024-01-01",
+        "publisher": "Видавництво \"Книга\"",
+        "description": "Це захоплюючий роман, який розповідає історію про великі пригоди героя у далекому майбутньому.",
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "UAH",
+            "price": "500"
+        }
     }
     </script>
-</head>
-<body itemscope itemtype="http://schema.org/BookStore" vocab="http://schema.org/" typeof="BookStore">
-    <h1 itemprop="name" property="name">Літературна Гавань</h1>
-    <p itemprop="description" property="description">Чарівний книжковий магазин з широким вибором книг та затишними місцями для читання.</p>
-    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" property="address" typeof="PostalAddress">
-        <span itemprop="streetAddress" property="streetAddress">456 Вулиця Дубів</span><br>
-        <span itemprop="addressLocality" property="addressLocality">Книжкове Місто</span>, 
-        <span itemprop="addressRegion" property="addressRegion">КА</span>
+
+    <!-- RDFa -->
+    <div vocab="https://schema.org/" typeof="Book">
+        <h2>Опис книги (RDFa)</h2>
+        <p><strong>Назва:</strong> <span property="name">Великий роман</span></p>
+        <p><strong>Автор:</strong> <span property="author">Іван Іванов</span></p>
+        <p><strong>Дата публікації:</strong> <span property="datePublished">2024-01-01</span></p>
+        <p><strong>Видавництво:</strong> <span property="publisher">Видавництво "Книга"</span></p>
+        <p><strong>Опис:</strong> <span property="description">Це захоплюючий роман, який розповідає історію про великі пригоди героя у далекому майбутньому.</span></p>
+        <div property="offers" typeof="Offer">
+            <p><strong>Ціна:</strong> <span property="price" content="500">500 грн</span></p>
+            <p><strong>Валюта:</strong> <span property="priceCurrency" content="UAH">UAH</span></p>
+        </div>
     </div>
-    <p itemprop="telephone" property="telephone">(123) 456-7890</p>
 </body>
 </html>
