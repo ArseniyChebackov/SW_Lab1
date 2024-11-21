@@ -1,103 +1,68 @@
 from rdflib import Graph, Namespace, Literal, URIRef
-from rdflib.namespace import FOAF, RDF, XSD
-from rdflib.tools.rdf2dot import rdf2dot
-import graphviz
+from rdflib.namespace import RDF, FOAF, XSD
 
+# Створення графу RDF
 g = Graph()
+
+# Визначення просторів імен
 EX = Namespace("http://example.org/")
 
-# Додавання інформації про Кейда
-keid = EX.Keid
-g.add((keid, RDF.type, FOAF.Person))
-g.add((keid, FOAF.name, Literal("Keid")))
-g.add((keid, FOAF.mbox, Literal("keid@example.org")))
-g.add((keid, FOAF.based_near, Literal("1516 Henry Street, Berkeley, California 94709, USA")))
-g.add((keid, FOAF.degree, Literal("Bachelor of Biology", datatype=XSD.string)))
-g.add((keid, FOAF.interest, Literal("birds")))
-g.add((keid, FOAF.interest, Literal("ecology")))
-g.add((keid, FOAF.interest, Literal("environment")))
-g.add((keid, FOAF.interest, Literal("photography")))
-g.add((keid, FOAF.interest, Literal("travel")))
-g.add((keid, FOAF.visited, Literal("Canada")))
-g.add((keid, FOAF.visited, Literal("France")))
+# Додавання даних для Кейда
+cade = URIRef(EX.Cade)
+g.add((cade, RDF.type, FOAF.Person))
+g.add((cade, FOAF.name, Literal("Cade")))
+g.add((cade, FOAF.based_near, Literal("1516 Henry Street, Berkeley, California 94709, USA")))
+g.add((cade, EX.degree, Literal("Bachelor of Biology", lang="en")))
+g.add((cade, EX.degreeYear, Literal(2011, datatype=XSD.gYear)))
+g.add((cade, FOAF.interest, Literal("Birds")))
+g.add((cade, FOAF.interest, Literal("Ecology")))
+g.add((cade, FOAF.interest, Literal("Environment")))
+g.add((cade, FOAF.interest, Literal("Photography")))
+g.add((cade, FOAF.interest, Literal("Travel")))
+g.add((cade, EX.visited, Literal("Canada")))
+g.add((cade, EX.visited, Literal("France")))
 
-# Додавання інформації про Емму
-emma = EX.Emma
+# Додавання даних для Емми
+emma = URIRef(EX.Emma)
 g.add((emma, RDF.type, FOAF.Person))
 g.add((emma, FOAF.name, Literal("Emma")))
-g.add((emma, FOAF.mbox, Literal("emma@example.org")))
 g.add((emma, FOAF.based_near, Literal("Carrer de la Guardia Civil 20, 46020 Valencia, Spain")))
-g.add((emma, FOAF.degree, Literal("Master of Chemistry", datatype=XSD.string)))
-g.add((emma, FOAF.interest, Literal("cycling")))
-g.add((emma, FOAF.interest, Literal("music")))
-g.add((emma, FOAF.interest, Literal("travel")))
-g.add((emma, FOAF.visited, Literal("Portugal")))
-g.add((emma, FOAF.visited, Literal("Italy")))
-g.add((emma, FOAF.visited, Literal("France")))
-g.add((emma, FOAF.visited, Literal("Germany")))
-g.add((emma, FOAF.visited, Literal("Denmark")))
-g.add((emma, FOAF.visited, Literal("Sweden")))
-
-# Додавання інформації про зустріч Кейда та Емми
-g.add((keid, FOAF.knows, emma))
-g.add((keid, FOAF.meetingPlace, Literal("Paris")))
-g.add((keid, FOAF.meetingDate, Literal("2014-08", datatype=XSD.gYearMonth)))
-
-# Візуалізація графу
-def visualize_graph(g):
-    stream = graphviz.Digraph()
-    rdf2dot(g, stream)
-    stream.render('graph', format='png', view=True)
-
-visualize_graph(g)
-
-# Серіалізація графу у формат TURTLE
-turtle_data = g.serialize(format='turtle')
-with open('graph.ttl', 'w') as f:
-    f.write(turtle_data)
-
-# Внесення змін до графу
-g.add((keid, FOAF.visited, Literal("Germany")))
+g.add((emma, EX.degree, Literal("Master of Chemistry", lang="en")))
+g.add((emma, EX.degreeYear, Literal(2015, datatype=XSD.gYear)))
+g.add((emma, FOAF.interest, Literal("Cycling")))
+g.add((emma, FOAF.interest, Literal("Music")))
+g.add((emma, FOAF.interest, Literal("Travel")))
+g.add((emma, EX.visited, Literal("Portugal")))
+g.add((emma, EX.visited, Literal("Italy")))
+g.add((emma, EX.visited, Literal("France")))
+g.add((emma, EX.visited, Literal("Germany")))
+g.add((emma, EX.visited, Literal("Denmark")))
+g.add((emma, EX.visited, Literal("Sweden")))
 g.add((emma, FOAF.age, Literal(36, datatype=XSD.integer)))
 
-# Збереження оновленого графу у форматі TURTLE
-turtle_data = g.serialize(format='turtle')
-with open('graph_updated.ttl', 'w') as f:
-    f.write(turtle_data)
+# Зв'язок між Кейдом та Еммою
+g.add((cade, FOAF.knows, emma))
+g.add((emma, FOAF.knows, cade))
+g.add((cade, EX.metAt, Literal("Paris")))
+g.add((cade, EX.metOn, Literal("2014-08", datatype=XSD.gYearMonth)))
 
-# Виведення всіх трійок на консоль
-print("Всі трійки графу:")
+# Збереження у файл TURTLE
+g.serialize("output.ttl", format="turtle")
+
+# Редагування: додати інформацію, що Кейд відвідував Німеччину
+g.add((cade, EX.visited, Literal("Germany")))
+
+# Виведення всіх трійок
+print("All triples:")
 for s, p, o in g:
-    print(f"{s} {p} {o}")
+    print(s, p, o)
 
-# Виведення трійок, що стосуються лише про Емму
-emma_query = """
-PREFIX ex: <http://example.org/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-
-SELECT ?s ?p ?o
-WHERE {
-    ex:Emma ?p ?o .
-}
-"""
-
-print("\nТрійки, що стосуються лише про Емму:")
-emma_results = g.query(emma_query)
-for row in emma_results:
-    print(f"{row.s} {row.p} {row.o}")
+# Виведення трійок, що стосуються лише Емми
+print("\nTriples about Emma:")
+for s, p, o in g.triples((emma, None, None)):
+    print(s, p, o)
 
 # Виведення трійок, що містять імена людей
-names_query = """
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-
-SELECT ?s ?p ?o
-WHERE {
-    ?s ?p ?o .
-    FILTER(STRSTARTS(STR(?p), STR(foaf:name)))
-}
-"""
-
-print("\nТрійки, що містять імена людей:")
-names_results = g.query(names_query)
-for row in names_results:
-    print(f"{row.s} {row.p} {row.o}")
+print("\nTriples with names of people:")
+for s, p, o in g.triples((None, FOAF.name, None)):
+    print(s, p, o)
