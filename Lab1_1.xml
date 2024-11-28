@@ -18,20 +18,25 @@
   <rdf:Description rdf:about="http://example.org/Spiegel">
     <rdf:type rdf:resource="http://dbpedia.org/ontology/Journal"/>
     <rdfs:label>Spiegel</rdfs:label>
-    <dbpedia:language>німецька</dbpedia:language>
-    <dbpedia:headquarters rdf:resource="http://example.org/Hamburg"/>
+    <dbpedia:language rdf:resource="http://dbpedia.org/resource/German_language"/>
+    <dbpedia:headquarters rdf:resource="http://dbpedia.org/resource/Hamburg"/>
   </rdf:Description>
 
   <rdf:Description rdf:about="http://example.org/Essay">
-    <rdf:type rdf:resource="http://example.org/text#StructuredText"/>
-    <text:hasPart rdf:resource="http://example.org/Introduction"/>
-    <text:hasPart rdf:resource="http://example.org/MainBody"/>
-    <text:hasPart rdf:resource="http://example.org/Conclusion"/>
+      <rdf:type rdf:resource="http://example.org/text#StructuredText"/>
+      <text:hasPart>
+          <rdf:Seq>
+              <rdf_1 rdf:resource="http://example.org/Introduction"/>
+              <rdf_2 rdf:resource="http://example.org/MainBody"/>
+              <rdf_3 rdf:resource="http://example.org/Conclusion"/>
+          </rdf:Seq>
+      </text:hasPart>
   </rdf:Description>
 
   <rdf:Description rdf:about="http://example.org/Pavlo">
     <foaf:knows rdf:resource="http://example.org/OlenaLivesInPoltava"/>
   </rdf:Description>
+
   <rdf:Description rdf:about="http://example.org/OlenaLivesInPoltava">
     <rdf:type rdf:resource="http://example.org/Statement"/>
     <ex:about rdf:resource="http://example.org/Olena"/>
@@ -41,6 +46,7 @@
   <rdf:Description rdf:about="http://example.org/Olena">
     <foaf:knows rdf:resource="http://example.org/FriendLivesInKyiv"/>
   </rdf:Description>
+
   <rdf:Description rdf:about="http://example.org/FriendLivesInKyiv">
     <rdf:type rdf:resource="http://example.org/Statement"/>
     <ex:about rdf:resource="http://example.org/Friend"/>
@@ -50,10 +56,12 @@
   <rdf:Description rdf:about="http://example.org/Stefan">
     <foaf:thinks rdf:resource="http://example.org/AnnaKnowsStefanKnowsHerFather"/>
   </rdf:Description>
+
   <rdf:Description rdf:about="http://example.org/AnnaKnowsStefanKnowsHerFather">
     <rdf:type rdf:resource="http://example.org/Statement"/>
     <ex:knows rdf:resource="http://example.org/StefanKnowsHerFather"/>
   </rdf:Description>
+
   <rdf:Description rdf:about="http://example.org/StefanKnowsHerFather">
     <rdf:type rdf:resource="http://example.org/Statement"/>
     <ex:knows rdf:resource="http://example.org/Father"/>
@@ -62,10 +70,7 @@
   <rdf:Description rdf:about="http://example.org/Ivan">
     <foaf:knows rdf:resource="http://example.org/RomeIsCapitalOfItaly"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://example.org/RomeIsCapitalOfItaly">
-    <rdf:type rdf:resource="http://example.org/Statement"/>
-    <ex:capitalOf rdf:resource="http://dbpedia.org/ontology/Italy"/>
-    <ex:isCapital rdf:resource="http://dbpedia.org/ontology/Rome"/>
-  </rdf:Description>
+
+
 
 </rdf:RDF>
